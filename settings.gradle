@@ -1,1 +1,1 @@
-include ':app', ':hermes-eventbus'
+include ':app', ':hermes-eventbus', ':hermes', ':concurrent-utils'
