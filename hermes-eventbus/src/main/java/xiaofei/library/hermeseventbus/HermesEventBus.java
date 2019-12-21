@@ -299,23 +299,45 @@ public class HermesEventBus {
             });
              */
 
-//            Log.v(TAG, "Hermes " + Service.class.getCanonicalName());
-//            Log.v(TAG, "Hermes " + service.getCanonicalName());
-            if(service.getCanonicalName().equals(Service.class.getCanonicalName())) {
+            Log.v(TAG, "Hermes " + Service.class.getCanonicalName());
+            Log.v(TAG, "Hermes " + service.getCanonicalName());
+//            if (service.getCanonicalName().equals(Service.class.getCanonicalName())) {
+//                IMainService mainService = Hermes.getInstanceInService(service, IMainService.class);
+//                mainService.register(Process.myPid(), SubService.getInstance());
+//                mRemoteApis.set(mainService);
+//                mState = STATE_CONNECTED;
+//            }
+
+            // user can set hermesListener first when wanna handle callback by self.
+            // but should not change the default way in different apps.
+            if (hermesListener != null) {
+                hermesListener.onHermesConnected(service);
+            } else {
                 IMainService mainService = Hermes.getInstanceInService(service, IMainService.class);
                 mainService.register(Process.myPid(), SubService.getInstance());
                 mRemoteApis.set(mainService);
                 mState = STATE_CONNECTED;
             }
-            if(hermesListener != null){
-                hermesListener.onHermesConnected(service);
-            }
         }
 
         @Override
         public void onHermesDisconnected(Class<? extends HermesService> service) {
-            // Log.v(TAG, "Hermes disconnected in Process " + Process.myPid());
-            if(service.getCanonicalName().equals(Service.class.getCanonicalName())) {
+            Log.v(TAG, "Hermes disconnected in Process " + Process.myPid());
+//            if (service.getCanonicalName().equals(Service.class.getCanonicalName())) {
+//                mState = STATE_DISCONNECTED;
+//                mRemoteApis.action(new Action<IMainService>() {
+//                    @Override
+//                    public void call(IMainService o) {
+//                        o.unregister(Process.myPid());
+//                    }
+//                });
+//            }
+
+            // user can set hermesListener first when wanna handle callback by self.
+            // but should not change the default way in different apps.
+            if (hermesListener != null) {
+                hermesListener.onHermesDisconnected(service);
+            } else {
                 mState = STATE_DISCONNECTED;
                 mRemoteApis.action(new Action<IMainService>() {
                     @Override
@@ -323,9 +345,6 @@ public class HermesEventBus {
                         o.unregister(Process.myPid());
                     }
                 });
-            }
-            if(hermesListener != null){
-                hermesListener.onHermesDisconnected(service);
             }
             // I deleted the statement which assigns null to mRemoteApis.
             // Then, if the service is disconnected, the pending events will still be posted

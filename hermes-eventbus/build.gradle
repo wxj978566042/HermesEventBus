@@ -40,24 +40,24 @@ android {
         }
     }
 
-    lintOptions {
-        checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
-        abortOnError false
-    }
+//    lintOptions {
+//        checkReleaseBuilds false
+//        // Or, if you prefer, you can continue to check for errors in release builds,
+//        // but continue the build even when errors are found:
+//        abortOnError false
+//    }
 
 }
 
 dependencies {
-    api fileTree(include: ['*.jar'], dir: 'libs')
+//    api fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:23.3.0'
     api 'org.greenrobot:eventbus:3.0.0'
-    //    implementation 'xiaofei.library:hermes:0.7.0'
+//    implementation 'xiaofei.library:hermes:0.7.0'
     api project(':hermes')
-    //    api project(':concurrent-utils')
-    //    api 'xiaofei.library:concurrent-utils:0.1.4'
+//  api project(':concurrent-utils')
+//  api 'xiaofei.library:concurrent-utils:0.1.4'
     implementation files('libs/concurrent-utils-0.1.4.jar')
 }
 
