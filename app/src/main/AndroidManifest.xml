@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="xiaofei.library.hermeseventbustest">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -22,10 +25,17 @@
             android:name=".SecondActivity"
             android:process=":f" />
 
-        <service android:name="xiaofei.library.hermes.HermesService$HermesService0" android:exported="true"/>
+        <service
+            android:name="xiaofei.library.hermes.HermesService$HermesService0"
+            android:exported="true" />
+
         <service
             android:name=".MyService"
-            android:process=":g"/>
+            android:process=":g" />
+
+        <service
+            android:name=".GetParseService"
+            android:process=":wxj" />
     </application>
 
 </manifest>
